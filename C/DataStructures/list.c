@@ -1,73 +1,72 @@
-#ifndef INCLUDED_STDLIB_H_
-#define INCLUDED_STDLIB_H_
+#include <stdio.h>
 #include <stdlib.h>
-#endif
 
-typedef struct listNode {
+typedef struct ListNode {
+    struct ListNode *next;
     int data;
-    struct listNode *next;
 } ListNode;
+typedef struct List {
+    struct ListNode *head;
+} List;
 
-void makeListNode(ListNode** node, int data, ListNode* next);
-void addToListHead(ListNode** node, int data);
-void addToListTail(ListNode** node, int data);
-void deleteFromList(ListNode** node, int data);
-ListNode *searchFromList(ListNode* node, int data);
-void printList(ListNode* node);
-
-
-void makeListNode(ListNode** node, int data, ListNode* next) {
-    ListNode* buf = (ListNode*) malloc(sizeof(ListNode));
+ListNode *new_ListNode(int data) {
+    ListNode *buf = (ListNode*) malloc(sizeof(ListNode));
+    buf->next = NULL;
     buf->data = data;
-    buf->next = next;
-    *node = buf;
+    return buf;
+}
+List new_List() {
+    List *buf = (List*) malloc(sizeof(List));
+    buf->head = NULL;
+    return *buf;
 }
 
-
-void addToListHead(ListNode** node, int data) {
-    makeListNode(node, data, *node);
+void add_to_List(List *list, int data) {
+    ListNode *node = new_ListNode(data);
+    node->next = list->head;
+    list->head = node;
 }
-
-
-void addToListTail(ListNode** node, int data) {
-    if (*node == NULL) {
-        makeListNode(node, data, NULL);
-    } else if ((*node)->next == NULL) {
-        makeListNode(&(*node)->next, data, NULL);
-    } else {
-        addToListTail(&(*node)->next, data);
-    }
-}
-
-
-void deleteFromList(ListNode** node, int data) {
-    if ((*node)->data == data) {
-        free(*node);
-        *node = (*node)->next;
-    } else if ((*node)->next == NULL) {
+void add_to_List_Tail(List *list, int data) {
+    ListNode *node = new_ListNode(data);
+    if (list->head == NULL) {
+        list->head = node;
         return;
-    }else if ((*node)->next->data == data) {
-        free((*node)->next);
-        (*node)->next = (*node)->next->next;
-    } else {
-        deleteFromList(&(*node)->next, data);
     }
+    ListNode *tail = list->head;
+    for (; tail->next != NULL; tail = tail->next);
+    tail->next = node;
+}
+int delete_from_List(List *list, int data) {
+    if (list->head == NULL) return -1;
+    if (list->head->data == data) {
+        ListNode *del = list->head;
+        list->head = del->next;
+        free(del);
+        return 1;
+    }
+    for (ListNode *node = list->head; node->next != NULL; node = node->next) {
+        if (node->next->data == data) {
+            ListNode *del = node->next;
+            node->next = del->next;
+            free(del);
+            return 1;
+        }
+    }
+    return -1;
+}
+ListNode *search_List(List list, int data) {
+    for (ListNode *node = list.head;; node = node->next)
+        if (node == NULL || node->data == data)
+            return node;
 }
 
-
-ListNode *searchFromList(ListNode* node, int data) {
-    return (node == NULL || node->data == data) ? node : searchFromList(node->next, data);
-}
-
-
-void printList(ListNode* node) {
-    if (node == NULL) {
+void print_List(List list) {
+    if (list.head == NULL) {
         printf("[NULL]\n");
     } else {
+        ListNode *node = list.head;
         printf("[%d", node->data);
-        
         while ((node = node->next) != NULL) printf(", %d", node->data);
-        
         printf("]\n");
     }
 }
