@@ -1,67 +1,46 @@
 #include <stdio.h>
 #include "DataStructures/list.c"
 
-void print3List(ListNode* headA, ListNode* headB, ListNode* headC) {
-    printf("ListA : "); printList(headA);
-    printf("ListB : "); printList(headB);
-    printf("ListC : "); printList(headC);
-    printf("\n");
-}
-
-void searchFrom3Lists(ListNode* headA, ListNode* headB, ListNode* headC, int data) {
-    if (searchFromList(headA, data) != NULL) printf("[%d] exist in ListA\n", data);
-    else printf("[%d] doesn't exist in ListA\n", data);
-    
-    if (searchFromList(headB, data) != NULL) printf("[%d] exist in ListB\n", data);
-    else printf("[%d] doesn't exist in ListB\n", data);
-    
-    if (searchFromList(headC, data) != NULL) printf("[%d] exist in ListC\n\n", data);
-    else printf("[%d] doesn't exist in ListC\n\n", data);
-}
-
-void addTo3ListHead(ListNode** headA, ListNode** headB, ListNode** headC, int data) {
-    addToListHead(headA, data);
-    addToListHead(headB, data);
-    addToListHead(headC, data);
-    print3List(*headA, *headB, *headC);
-}
-
-void addTo3ListTail(ListNode** headA, ListNode** headB, ListNode** headC, int data) {
-    addToListTail(headA, data);
-    addToListTail(headB, data);
-    addToListTail(headC, data);
-    print3List(*headA, *headB, *headC);
-}
-
 int main(void) {
-    ListNode* headA = NULL;
-    ListNode* headB = NULL;
-    ListNode* headC = NULL;
-    print3List(headA, headB, headC);// Print List
+    List list = new_List();
+    print_List(list);
     
-    makeListNode(&headA, 5, NULL);
-    addToListHead(&headB, 5);
-    addToListTail(&headC, 5);
-    print3List(headA, headB, headC);// Print List
+    add_to_List(&list, 1);
+    add_to_List(&list, 2);
+    add_to_List(&list, 3);
+    add_to_List_Tail(&list, 4);
+    add_to_List_Tail(&list, 5);
+    add_to_List_Tail(&list, 6);
+    print_List(list);
     
-    addTo3ListHead(&headA, &headB, &headC, 4);
-    addTo3ListTail(&headA, &headB, &headC, 6);
-    addTo3ListHead(&headA, &headB, &headC, 3);
-    addTo3ListTail(&headA, &headB, &headC, 7);
-    addTo3ListHead(&headA, &headB, &headC, 2);
-    addTo3ListTail(&headA, &headB, &headC, 8);
+    delete_from_List(&list, 0);
+    print_List(list);
     
-    for (int i = 0; i <= 10; i++) searchFrom3Lists(headA, headB, headC, i);
+    delete_from_List(&list, 6);
+    print_List(list);
     
-    printf("[5]'s next is [%d]\n\n", searchFromList(headA, 5)->next->data);
+    delete_from_List(&list, 3);
+    print_List(list);
     
-    printf("ListA : "); printList(headA);
-    deleteFromList(&headA, 2);
-    deleteFromList(&headA, 5);
-    deleteFromList(&headA, 8);
-    deleteFromList(&headA, 0);
-    deleteFromList(&headA, 9);
-    printf("ListA : "); printList(headA);
+    delete_from_List(&list, 1);
+    print_List(list);
+    
+    ListNode *node1 = search_List(list, 1);
+    ListNode *node2 = search_List(list, 2);
+    
+    if (node1 == NULL) print("node 1 is null.\n");
+    else print("node 1 is %d.\n", node1->data);
+    
+    if (node2 == NULL) print("node 2 is null.\n");
+    else print("node 2 is %d.\n", node2->data);
     
     return 0;
 }
+
+
+
+void add_to_List(List *list, int data)
+void add_to_List_Tail(List *list, int data)
+int delete_from_List(List *list, int data)
+ListNode *search_List(List list, int data)
+void print_List(List list)
