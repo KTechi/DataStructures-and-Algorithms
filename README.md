@@ -11,6 +11,8 @@
 - __Map__
 
 ## Algorithms
+- __Search__
+  - Binary
 - __Sort__
   - Bubble
   - Selection
@@ -19,10 +21,11 @@
   - Quick
   - Merge
   - Radix
-- __Cryptography__
-  - DES
-  - AES
-  - RSA
-  - ElGamal
-  - Elliptic Curve Cryptography
-  - Lattice-based cryptography
+
+## Crypto
+- __ElGamal__
+- __RSA__
+- __Elliptic Curve__
+- __DES__
+- __AES__
+- __Lattice-based__
