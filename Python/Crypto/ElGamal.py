@@ -3,11 +3,11 @@ import random as rd
 class ElGamal:
     def __init__(self, p, m):
         self.P = p                             # Public Key: Prime
-        self.G = rd.randint(1, p - 1)          # Public Key: Random(1, P - 1)
-        self.X = rd.randint(0, p - 1)          # Secret Key: Random(0, P - 1)
+        self.G = rd.randint(2, p - 2)          # Public Key: Random(2, P - 2)
+        self.X = rd.randint(1, p - 2)          # Secret Key: Random(1, P - 2)
         self.Y = self.__powMod(self.G, self.X) # Public Key: G^X (modulo P)
         self.M = m                             # Message: C1^(P-1-X) * C2 (modulo P)
-        r = rd.randint(0, p - 1)
+        r = rd.randint(1, p - 2)
         self.C1 = self.__powMod(self.G, r)     # enCode: G^r (modulo P)
         self.C2 = self.__powMod(self.Y, r)*m%p # enCode: M * Y^r (modulo P)
 
