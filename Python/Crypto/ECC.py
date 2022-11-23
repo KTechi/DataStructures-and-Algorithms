@@ -98,11 +98,11 @@ assert ecc.calc(g)
 assert ecc.scale(n, g=ecc.G) == (0, 0)
 
 while True:
-    d = rd.randint(1, n) # Secret Key: Random(1, n)
-    k = rd.randint(1, n) # Secret Key: Random(1, n)
-    h = rd.randint(1, n) # hash(message)
-    Q = ecc.scale(d)     # Q = dG
-    R = ecc.scale(k)     # R = kG
+    d = rd.randint(1, n-1) # Secret Key: Random(1, n-1)
+    k = rd.randint(1, n-1) # Secret Key: Random(1, n-1)
+    h = rd.randint(1, n-1) # hash(message)
+    Q = ecc.scale(d)       # Q = dG
+    R = ecc.scale(k)       # R = kG
     r = R[0]
     k_inv = moduloInverse(k, n)
     if k * k_inv % n != 1:
@@ -118,8 +118,8 @@ def printResult():
     print('a, b =', a, b)
     print('p =', p) # Prime
     print('n =', n) # nG = \infty
-    print('d =', d) # Secret Key: Random(1, n)
-    print('k =', k) # Secret Key: Random(1, n)
+    print('d =', d) # Secret Key: Random(1, n-1)
+    print('k =', k) # Secret Key: Random(1, n-1)
     print('h =', h) # hash(message)
     print('======== Signature ========')
     print('r =', r) # R = kG
