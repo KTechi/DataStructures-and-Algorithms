@@ -99,7 +99,7 @@ assert ecc.scale(n, g=ecc.G) == (0, 0)
 
 while True:
     d = rd.randint(1, n) # Secret Key: Random(1, n)
-    k = rd.randint(1, n) # Public Key: Random(1, n)
+    k = rd.randint(1, n) # Secret Key: Random(1, n)
     h = rd.randint(1, n) # hash(message)
     Q = ecc.scale(d)     # Q = dG
     R = ecc.scale(k)     # R = kG
@@ -119,7 +119,7 @@ def printResult():
     print('p =', p) # Prime
     print('n =', n) # nG = \infty
     print('d =', d) # Secret Key: Random(1, n)
-    print('k =', k) # Public Key: Random(1, n)
+    print('k =', k) # Secret Key: Random(1, n)
     print('h =', h) # hash(message)
     print('======== Signature ========')
     print('r =', r) # R = kG
