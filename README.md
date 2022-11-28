@@ -21,6 +21,7 @@
   - Quick
   - Merge
   - Radix
+  - Heap
 
 ## Crypto
 - __ElGamal__
