@@ -19,7 +19,8 @@
     - ElGamal
     - RSA
     - ECC
-<--
+
+<!--
 ## Data Structures
 - __Stack__ (FILO)
 - __Queue__ (FIFO)
