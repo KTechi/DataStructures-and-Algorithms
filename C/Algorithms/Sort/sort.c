@@ -79,14 +79,19 @@ void quick(void) {
 void func_quick(int l, int r) {
     int i = l, j = r, pivot = median(g_array[l], g_array[(l+r)/2], g_array[r]);
     if (r <= l || r == -1) return;
+    if (r - l == 1) {
+        if (g_array[r] < g_array[l])
+            swap(g_array, l, r);
+        return;
+    }
     while (1) {
-        while (g_array[i] < pivot && ++i < r);
-        while (pivot < g_array[j] && --j < l);
+        while (g_array[i] <= pivot && i < j) i++;
+        while (pivot <= g_array[j] && i < j) j--;
         if (j <= i) break;
         swap(g_array, i, j);
     }
-    func_quick(l, i - 1);
-    func_quick(j + 1, r);
+    func_quick(l, i-1);
+    func_quick(i, r);
 }
 int median(int a, int b, int c) {
     if (a < b) {
