@@ -12,24 +12,8 @@ class BinarySearchTree:
             self.root.insert(key)
 
     def delete(self, key):
-        if self.root == None:
-            return False
-        if self.root.key == key:
-            if self.root.L == None:
-                self.root = self.root.R
-                return True
-            max_node_parent = self.root.L.max_node_parent()
-            if max_node_parent == None:
-                self.root.L.R = self.root.R
-                self.root = self.root.L
-                return True
-            max_node = max_node_parent.R
-            max_node_parent.R = max_node.L
-            max_node.L = self.root.L
-            max_node.R = self.root.R
-            self.root = max_node
-            return True
-        return self.root.delete(key)
+        if self.root != None:
+            self.root = self.root.delete(key)
 
     def list(self):
         return [] if self.root == None else self.root.list()
@@ -85,43 +69,25 @@ class BinarySearchTreeNode:
                 self.R.insert(key)
 
     def delete(self, key):
-        if key < self.key:
-            if self.L == None:
-                return False
-            if self.L.key != key:
-                return self.L.delete(key)
-            del_node = self.L
-            if del_node.L == None:
-                self.L = del_node.R
-                return True
-        else:
-            if self.R == None:
-                return False
-            if self.R.key != key:
-                return self.R.delete(key)
-            del_node = self.R
-            if del_node.L == None:
-                self.R = del_node.R
-                return True
+        if key < self.key and self.L != None:
+            self.L = self.L.delete(key)
+        elif self.key < key and self.R != None:
+            self.R = self.R.delete(key)
 
-        max_node_parent = del_node.L.max_node_parent()
+        if key != self.key:
+            return self
+        if self.L == None:
+            return self.R
+
+        max_node_parent = self.L.max_node_parent()
         if max_node_parent == None:
-            del_node.L.R = del_node.R
-            if key < self.key:
-                self.L = del_node.L
-            else:
-                self.R = del_node.L
-            return True
-
+            self.L.R = self.R
+            return self.L
         max_node = max_node_parent.R
         max_node_parent.R = max_node.L
-        max_node.L = del_node.L
-        max_node.R = del_node.R
-        if key < self.key:
-            self.L = max_node
-        else:
-            self.R = max_node
-        return True
+        max_node.L = self.L
+        max_node.R = self.R
+        return max_node
 
     def max_node_parent(self):
         if self.R == None:
