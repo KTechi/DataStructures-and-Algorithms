@@ -26,6 +26,7 @@
 ### Python
 - [Data Structures](https://github.com/KTechi/DataStructures-and-Algorithms/tree/master/Python/DataStructures)
   - Binary Search Tree
+  - AVL Tree
 - [Algorithms](https://github.com/KTechi/DataStructures-and-Algorithms/tree/master/Python/Algorithms)
   - Sort
     - Selection
