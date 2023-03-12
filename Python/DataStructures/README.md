@@ -1,5 +1,7 @@
-# Binary Search Tree
-__Code__
+<details><summary>
+
+# Binary Search Tree</summary>
+## Code
 ```python
 bst = BinarySearchTree()
 for i in [7, 4, 8, 3, 5, 9, 1, 6, 0, 2]:
@@ -10,7 +12,7 @@ bst.delete(7)
 print(bst.list())
 bst.print_tree()
 ```
-__Output__
+## Output
 ```python
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
        7
@@ -25,9 +27,14 @@ __Output__
  1
 0 2
 ```
+</details>
 
-# AVL Tree
-__Code__
+<details><summary>
+
+# AVL Tree</summary>
+- AVLTree.py uses `balance`
+- AVLTree2.py uses `height`
+## Code
 ```python
 avl = AVLTree()
 for i in [5, 4, 3, 2, 1, 0, 6]:
@@ -38,7 +45,7 @@ avl.delete(0)
 print(avl.list())
 avl.print_tree()
 ```
-__Output__
+## Output
 ```python
 [0, 1, 2, 3, 4, 5, 6]
   2
@@ -50,3 +57,4 @@ __Output__
  2  5
 1 3  6
 ```
+</details>
