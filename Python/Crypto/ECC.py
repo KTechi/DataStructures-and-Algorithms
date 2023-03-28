@@ -14,13 +14,11 @@ class ECC:
         self.N = n
 
     def print(self):
-        print(f'a, b = {self.A}, {self.B}')
+        print(f'a = {self.A}')
+        print(f'b = {self.B}')
         print(f'P = {self.P}')
         print(f'G = {self.G}')
         print(f'N = {self.N}')
-
-    def calc(self, p):
-        return p[1]**2 % self.P == (p[0]**3 + self.A*p[0] + self.B) % self.P
 
     def add(self, p, q):
         if p == (0, 0):
@@ -60,14 +58,8 @@ class ECC:
             while exp + 2*tmp_exp <= s:
                 tmp = self.add(tmp, tmp)
                 tmp_exp *= 2
-                # if exp + tmp_exp + 1 <= s and tmp == (0, 0):
-                #     tmp = g
-                #     tmp_exp += 1
             ret = self.add(ret, tmp)
             exp += tmp_exp
-            # if exp + 1 <= s and ret == (0, 0):
-            #     ret = g
-            #     exp += 1
         return ret
 
     def __powMod(self, x, y):
@@ -94,7 +86,7 @@ g = (0xDB4FF10EC057E9AE26B07D0280B7F4341DA5D1B1EAE06C7D,\
      0x9B2F2F6D9C5628A7844163D015BE86344082AA88D95E2F9D)
 n = 0xFFFFFFFFFFFFFFFFFFFFFFFE26F2FC170F69466A74DEFD8D
 ecc = ECC(a, b, p, g, n)
-assert ecc.calc(g)
+assert g[1]**2 % p == (g[0]**3 + a*g[0] + b) % p
 assert ecc.scale(n, g=ecc.G) == (0, 0)
 
 while True:
